@@ -1,5 +1,5 @@
 let runningtotal = 0;
-let buffer = "0";
+let buffer = 0;
 let previousoperator;
 
 const screen = document.querySelector('.screen');
@@ -10,13 +10,13 @@ function buttonclick(value){
     }else{
         handlenumber(value);
     }
-    screen.innertext = buffer;
+    screen.innerText = buffer;
 }
 
 function handlesymbol(symbol){
-    switch(symbol){
-        case 'c':
-            buffer = '0';
+    switch(symbol){ 
+        case 'C':
+            buffer = 0;
             runningtotal = 0;
             break;
         case '=':
@@ -29,10 +29,10 @@ function handlesymbol(symbol){
             runningtotal = 0;
             break;
         case '←':
-            if(buffer.length ===1){
-                buffer = '0';
+            if(buffer.length === 1){
+                buffer = 0;
             }else{
-                buffer = buffer.toString(0, buffer.lenght - 1);
+                buffer = buffer.toString(0, buffer.length - 1);
             } 
             break;   
         case '+':
@@ -45,18 +45,17 @@ function handlesymbol(symbol){
 }
 
 function handlemath(symbol){
-    if(buffer === '0'){
+    if(buffer === 0 ){
         return;
     }
  
     const intbuffer = parseInt(buffer);
+    previousoperator = symbol;
 
     if(runningtotal === 0){
         runningtotal = intbuffer;
-    }else{
-        flushoperation(intbuffer);
+        return;
     }
-    previousoperator = symbol;
     buffer = 0;
 }
 
@@ -73,7 +72,7 @@ function flushoperation(intbuffer){
 }
 
 function handlenumber(numberstring){
-    if(buffer === '0'){
+    if(buffer === 0){
         buffer = numberstring;
     }else{
         buffer += numberstring;
@@ -82,7 +81,7 @@ function handlenumber(numberstring){
 
 function init(){
     document.querySelector('.calc-buttons').addEventListener('click', function(event){
-        buttonclick(event.target.innertext);
+        buttonclick(event.target.innerText);
     })
 }
 
